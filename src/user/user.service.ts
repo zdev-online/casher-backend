@@ -53,18 +53,19 @@ export class UserService {
 		return this.prismaService.user.findFirst({ where: { twitch_id } });
 	}
 
-	/**
-	 * Захэшировать пароль пользователя
-	 */
+	/** Обновить данные пользователя */
+	public update(id: number, data: Prisma.UserUpdateInput) {
+		return this.prismaService.user.update({ data, where: { id } });
+	}
+
+	/** Захэшировать пароль пользователя */
 	public async hashPassword(raw_password: string) {
 		const salt = await bcrypt.genSalt();
 		const hashed_password = await bcrypt.hash(raw_password, salt);
 		return hashed_password;
 	}
 
-	/**
-	 * Проверяет пароль пользователя на валидность
-	 */
+	/** Проверяет пароль пользователя на валидность */
 	public isValidPassword(raw_password: string, user_password: string) {
 		return bcrypt.compare(raw_password, user_password);
 	}
