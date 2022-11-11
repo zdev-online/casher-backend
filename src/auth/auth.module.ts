@@ -19,7 +19,7 @@ import { TwitchModule } from 'src/twitch/twitch.module';
 		GoogleModule,
 		FacebookModule,
 		TelegramModule,
-		TwitchModule
+		TwitchModule,
 	],
 	providers: [AuthService],
 	controllers: [AuthController],
