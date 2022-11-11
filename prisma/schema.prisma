@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:root@localhost:5432/casher-backend?schema=public"
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  vk_id       Int?
+  google_id   String?
+  facebook_id String?
+  telegram_id String?
+  twitch_id   String?
+  email       String?  @unique
+  password    String?
+  nickname    String?  @unique @default(dbgenerated("concat('Player', ' ', nextval('test'::regclass))"))
+  balance     Int      @default(0)
+  created_at  DateTime @default(now())
+
+  @@index([id, email])
+  @@map("users")
+}
