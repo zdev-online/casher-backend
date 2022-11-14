@@ -1,4 +1,4 @@
-import { HttpStatus, ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
+import { HttpStatus, ValidationPipe, ClassSerializerInterceptor, Logger } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
@@ -30,6 +30,8 @@ async function bootstrap() {
 		}),
 	);
 
-	await app.listen(3000);
+	await app.listen(3000, () =>
+		Logger.log(`Server listening: ${process.env.PORT}`, `Server`),
+	);
 }
 bootstrap();
