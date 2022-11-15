@@ -20,6 +20,7 @@ model User {
   balance       Int             @default(0)
   created_at    DateTime        @default(now())
   Notifications Notifications[]
+  Messages      Messages[]
 
   @@index([id, email])
   @@map("users")
@@ -35,4 +36,15 @@ model Notifications {
 
   @@index([id])
   @@map("notifications")
+}
+
+model Messages {
+  id         Int      @id @default(autoincrement())
+  text       String
+  from       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  created_at DateTime @default(now())
+
+  @@index([id])
+  @@map("messages")
 }
