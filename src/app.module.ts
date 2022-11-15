@@ -20,6 +20,7 @@ import { FacebookModule } from './facebook/facebook.module';
 import { TelegramModule } from './telegram/telegram.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { LinksModule } from './links/links.module';
+import { GameModule } from './game/game.module';
 
 @Module({
 	imports: [
@@ -56,6 +57,7 @@ import { LinksModule } from './links/links.module';
 		TelegramModule,
 		TwitchModule,
 		LinksModule,
+		GameModule,
 	],
 	controllers: [AppController],
 	providers: [
