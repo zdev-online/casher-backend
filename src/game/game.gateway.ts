@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
 	MessageBody,
 	OnGatewayConnection,
@@ -10,9 +10,24 @@ import {
 	WsResponse,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { SocketEvents, SocketNamespaces } from 'src/common';
+import { BaseWsException, FAIL_VALIDATION_CODE, SocketEvents, SocketNamespaces } from 'src/common';
+import { WebsocketExceptionsFilter } from 'src/common/filters/ws-exceptions.filter';
 import { GetPingDto } from './dto';
 
+@UseFilters(new WebsocketExceptionsFilter())
+@UsePipes(
+	new ValidationPipe({
+		exceptionFactory: (errors) => {
+			const response = errors.map((error) => ({
+				value: error.value,
+				property: error.property,
+				message: 'Invalid property value',
+				constraints: error.constraints,
+			}));
+			return new BaseWsException(response, FAIL_VALIDATION_CODE);
+		},
+	}),
+)
 @WebSocketGateway({
 	namespace: SocketNamespaces.GAMES,
 	cors: {
