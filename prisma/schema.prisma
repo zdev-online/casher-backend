@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
-  vk_id         Int?
-  google_id     String?
-  facebook_id   String?
-  telegram_id   String?
-  twitch_id     String?
-  email         String?         @unique
-  password      String?
-  nickname      String?         @unique @default(dbgenerated("concat('Player', ' ', nextval('players_count'::regclass))"))
-  balance       Int             @default(0)
-  created_at    DateTime        @default(now())
-  Notifications Notifications[]
-  Messages      Messages[]
+  id              Int             @id @default(autoincrement())
+  vk_id           Int?
+  avatar_filename String?         @default("default.jpg")
+  google_id       String?
+  facebook_id     String?
+  telegram_id     String?
+  twitch_id       String?
+  email           String?         @unique
+  password        String?
+  nickname        String?         @unique @default(dbgenerated("concat('Player', ' ', nextval('players_count'::regclass))"))
+  balance         Int             @default(0)
+  created_at      DateTime        @default(now())
+  Notifications   Notifications[]
+  Messages        Messages[]
 
   @@index([id, email])
   @@map("users")
