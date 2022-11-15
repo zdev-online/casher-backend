@@ -21,6 +21,8 @@ import { TelegramModule } from './telegram/telegram.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { LinksModule } from './links/links.module';
 import { GameModule } from './game/game.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
 	imports: [
@@ -58,6 +60,8 @@ import { GameModule } from './game/game.module';
 		TwitchModule,
 		LinksModule,
 		GameModule,
+		NotificationsModule,
+		ChatModule,
 	],
 	controllers: [AppController],
 	providers: [
