@@ -10,12 +10,11 @@ import {
 	WsResponse,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { WsEvents } from 'src/common';
+import { SocketEvents, SocketNamespaces } from 'src/common';
 import { GetPingDto } from './dto';
 
 @WebSocketGateway({
-	path: '/socket',
-	namespace: '/games',
+	namespace: SocketNamespaces.GAMES,
 	cors: {
 		origin: '*',
 		credentials: true,
@@ -27,10 +26,10 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect, On
 	@WebSocketServer()
 	private server: Server;
 
-	@SubscribeMessage(WsEvents.PING)
+	@SubscribeMessage(SocketEvents.PING)
 	public getPingInfo(@MessageBody() dto: GetPingDto): WsResponse {
 		return {
-			event: WsEvents.PING,
+			event: SocketEvents.PING,
 			data: {
 				ping: Date.now() - dto.time,
 			},
