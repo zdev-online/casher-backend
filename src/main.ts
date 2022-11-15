@@ -30,8 +30,6 @@ async function bootstrap() {
 		}),
 	);
 
-	await app.listen(3000, () =>
-		Logger.log(`Server listening: ${process.env.PORT}`, `Server`),
-	);
+	await app.listen(3000, () => Logger.log(`Server listening: ${process.env.PORT}`, `Server`));
 }
 bootstrap();
