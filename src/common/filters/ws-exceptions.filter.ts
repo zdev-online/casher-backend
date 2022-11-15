@@ -9,11 +9,10 @@ export class WebsocketExceptionsFilter extends BaseWsExceptionFilter {
 	catch(exception: WsException, host: ArgumentsHost) {
 		const ws = host.switchToWs();
 		const client = ws.getClient<Socket>();
-		const event_name = Reflect.getMetadata('message', (host.switchToWs() as any).handler);
 
 		if (exception instanceof BaseWsException) {
 			const response = exception.serialize();
-			return client.emit(`${event_name}:error`, { ...response, id: client.id });
+			return client.emit(`exception`, { ...response, id: client.id });
 		}
 
 		if (exception instanceof WsException) {
@@ -25,9 +24,9 @@ export class WebsocketExceptionsFilter extends BaseWsExceptionFilter {
 				UNKNOWN_ERROR_CODE,
 			);
 
-			Logger.error(`${exception?.message}\n${exception?.stack}`, `HttpException`);
+			Logger.error(`${exception?.message}\n${exception?.stack}`, `WsException`);
 
-			return client.emit(`${event_name}:error`, { ...body.serialize(), id: client.id });
+			return client.emit(`exception`, { ...body.serialize(), id: client.id });
 		}
 	}
 }

@@ -2,7 +2,7 @@ import { WsException } from '@nestjs/websockets';
 import { IErrorObject } from 'src/common/interfaces';
 
 export class BaseWsException extends WsException {
-	constructor(object: IErrorObject, private code: number) {
+	constructor(object: IErrorObject | IErrorObject[], private code: number) {
 		super(object);
 	}
 
