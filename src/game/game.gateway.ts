@@ -9,17 +9,18 @@ import {
 	WebSocketServer,
 	WsResponse,
 } from '@nestjs/websockets';
-import { Server, Socket, ServerOptions } from 'socket.io';
-import { WsEvents, WsInvalidTokenException } from 'src/common';
+import { Server, Socket } from 'socket.io';
+import { WsEvents } from 'src/common';
 import { GetPingDto } from './dto';
 
 @WebSocketGateway({
 	path: '/socket',
+	namespace: '/games',
 	cors: {
 		origin: '*',
 		credentials: true,
 	},
-} as ServerOptions)
+})
 export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
 	private logger: Logger = new Logger('GameGateway');
 
