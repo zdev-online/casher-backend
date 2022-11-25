@@ -8,7 +8,7 @@ export class NotificationsService {
 
 	/** Получить непрочитанные уведомления */
 	public async getUnread(user_id: number, limit: number, cursor_id?: number) {
-		const messages = await this.prismaService.notifications.findMany({
+		const notifications = await this.prismaService.notifications.findMany({
 			skip: cursor_id && 1,
 			take: limit || 10,
 			cursor: cursor_id
@@ -22,9 +22,9 @@ export class NotificationsService {
 		});
 
 		/** Курсор для следующего запроса */
-		const next_from: number | undefined = messages.at(-1)?.id;
+		const next_from: number | undefined = notifications.at(-1)?.id;
 
-		return { messages, next_from };
+		return { notifications, next_from };
 	}
 
 	/** Добавить уведомления для пользователя */
