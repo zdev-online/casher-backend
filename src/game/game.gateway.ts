@@ -10,7 +10,13 @@ import {
 	WsResponse,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { BaseWsException, FAIL_VALIDATION_CODE, SocketEvents, SocketNamespaces } from 'src/common';
+import {
+	BaseWsException,
+	defaultGatewayOptions,
+	FAIL_VALIDATION_CODE,
+	SocketEvents,
+	SocketNamespaces,
+} from 'src/common';
 import { WebsocketExceptionsFilter } from 'src/common/filters/ws-exceptions.filter';
 import { GetPingDto } from './dto';
 
@@ -30,10 +36,7 @@ import { GetPingDto } from './dto';
 )
 @WebSocketGateway({
 	namespace: SocketNamespaces.GAMES,
-	cors: {
-		origin: '*',
-		credentials: true,
-	},
+	...defaultGatewayOptions,
 })
 export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
 	private logger: Logger = new Logger('GameGateway');
