@@ -4,3 +4,4 @@ package-lock.json
 configs/.development.env
 configs/.test.env
 configs/.production.env
+uploads

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { rename } from 'fs/promises';
 import { join } from 'path';
 import { Distionations, UserPasswordInvalidException } from 'src/common';
+import { UploadService } from 'src/upload/upload.service';
 import { UserPrivateDto, UserPublicDto } from 'src/user/dto';
 import { UserInRequest } from 'src/user/user.interface';
 import { UserService } from 'src/user/user.service';
@@ -9,7 +10,7 @@ import { ChangeNicknameDto, ChangePasswordDto } from './dto';
 
 @Injectable()
 export class ProfileService {
-	constructor(private userService: UserService) {}
+	constructor(private userService: UserService, private uploadService: UploadService) {}
 
 	/** Смена никнейма пользователя */
 	public async changeNickname(user: UserInRequest, dto: ChangeNicknameDto) {
@@ -50,12 +51,10 @@ export class ProfileService {
 
 	/** Обновить аватар */
 	public async changeAvatar(user: UserInRequest, file: Express.Multer.File) {
-		const old_path = join(file.destination, file.filename);
-		const new_path = join(Distionations.AVATAR, file.filename);
-		await rename(old_path, new_path);
+		const avatar_filename = await this.uploadService.saveAvatar(file);
 
 		const updated_user = await this.userService.update(user.id, {
-			avatar_filename: file.filename,
+			avatar_filename,
 		});
 
 		return new UserPublicDto(updated_user);

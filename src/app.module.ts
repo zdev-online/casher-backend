@@ -23,6 +23,7 @@ import { LinksModule } from './links/links.module';
 import { GameModule } from './game/game.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ChatModule } from './chat/chat.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
 	imports: [
@@ -62,6 +63,7 @@ import { ChatModule } from './chat/chat.module';
 		GameModule,
 		NotificationsModule,
 		ChatModule,
+		UploadModule,
 	],
 	controllers: [AppController],
 	providers: [
