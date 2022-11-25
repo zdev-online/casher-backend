@@ -12,7 +12,11 @@ export class ChatService {
 			data,
 			include: {
 				from: {
-					select: { nickname: true, id: true },
+					select: {
+						nickname: true,
+						id: true,
+						avatar_filename: true,
+					},
 				},
 			},
 		});
