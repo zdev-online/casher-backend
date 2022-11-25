@@ -7,13 +7,24 @@ export class NotificationsService {
 	constructor(private prismaService: PrismaService) {}
 
 	/** Получить непрочитанные уведомления */
-	public getUnread(user_id: number) {
-		return this.prismaService.notifications.findMany({
+	public async getUnread(user_id: number, limit: number, cursor_id?: number) {
+		const messages = await this.prismaService.notifications.findMany({
+			skip: cursor_id && 1,
+			take: limit || 10,
+			cursor: cursor_id
+				? {
+						id: cursor_id,
+				  }
+				: undefined,
 			where: {
 				user_id,
-				is_readed: false,
 			},
 		});
+
+		/** Курсор для следующего запроса */
+		const next_from: number | undefined = messages.at(-1)?.id;
+
+		return { messages, next_from };
 	}
 
 	/** Добавить уведомления для пользователя */
@@ -21,7 +32,7 @@ export class NotificationsService {
 		return this.prismaService.notifications.create({ data });
 	}
 
-	/** Пометить указанные увемедолмения, как прочитанные */
+	/** Пометить указанные уведомления, как прочитанные */
 	public markAsReadMany(notification_ids: number[]) {
 		return this.prismaService.notifications.updateMany({
 			where: {
