@@ -1,5 +1,6 @@
 import { Logger, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
+	ConnectedSocket,
 	MessageBody,
 	OnGatewayConnection,
 	OnGatewayDisconnect,
@@ -16,6 +17,7 @@ import {
 	FAIL_VALIDATION_CODE,
 	SocketEvents,
 	SocketNamespaces,
+	WsResponseDto,
 } from 'src/common';
 import { WebsocketExceptionsFilter } from 'src/common/filters/ws-exceptions.filter';
 import { GetPingDto } from './dto';
@@ -38,21 +40,31 @@ import { GetPingDto } from './dto';
 	namespace: SocketNamespaces.GAMES,
 	...defaultGatewayOptions,
 })
+// TODO: Сделать cron-job \ interval для игр
 export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
 	private logger: Logger = new Logger('GameGateway');
 
 	@WebSocketServer()
 	private server: Server;
 
+	// TODO: Сделать interface для Crash игры
+	private crash_game: any;
+
 	@SubscribeMessage(SocketEvents.PING)
-	public getPingInfo(@MessageBody() dto: GetPingDto): WsResponse {
-		return {
-			event: SocketEvents.PING,
-			data: {
-				ping: Date.now() - dto.time,
-			},
-		};
+	public getPingInfo(@MessageBody() dto: GetPingDto): WsResponseDto<{ ping: number }> {
+		return new WsResponseDto(SocketEvents.PING, {
+			ping: Date.now() - dto.time,
+		});
 	}
+
+	@SubscribeMessage(SocketEvents.GAME_CRASH_GET_CURRENT)
+	async getCurrentCrashGame(@ConnectedSocket() client: Socket): Promise<WsResponse<any>> {
+		return new WsResponseDto(SocketEvents.GAME_CRASH_GET_CURRENT, this.crash_game);
+	}
+
+	// TODO: Сделать dto ставки
+	@SubscribeMessage(SocketEvents.GAME_CRASH_BET)
+	async betForCrashGame(@MessageBody() bet: any, @ConnectedSocket() client: Socket) {}
 
 	/** Событие подключения клиента к серверу */
 	public handleConnection(client: Socket) {}

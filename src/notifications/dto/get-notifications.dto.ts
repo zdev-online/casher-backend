@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsInt, IsOptional } from "class-validator";
+import { IsNotEmpty, IsNumber, IsInt, IsOptional } from 'class-validator';
 
 export class GetNotificationsDto {
 	@IsNotEmpty()

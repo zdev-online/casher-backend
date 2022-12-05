@@ -17,4 +17,4 @@ export const INVALID_REFRESH_TOKEN = 202;
 export const INVALID_VERIFICATION_TOKEN = 203;
 
 export const NOT_AUTHORIZED_CODE = 300;
-export const FLOOD_LIMIT_CODE = 301; 
+export const FLOOD_LIMIT_CODE = 301;
