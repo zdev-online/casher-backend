@@ -20,7 +20,6 @@ import { FacebookModule } from './facebook/facebook.module';
 import { TelegramModule } from './telegram/telegram.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { LinksModule } from './links/links.module';
-import { GameModule } from './game/game.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ChatModule } from './chat/chat.module';
 import { UploadModule } from './upload/upload.module';
@@ -60,7 +59,6 @@ import { UploadModule } from './upload/upload.module';
 		TelegramModule,
 		TwitchModule,
 		LinksModule,
-		GameModule,
 		NotificationsModule,
 		ChatModule,
 		UploadModule,

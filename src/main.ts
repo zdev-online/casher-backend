@@ -4,8 +4,7 @@ import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
-import { FAIL_VALIDATION_CODE } from './common/constants/error-codes.constants';
-import { BaseHttpException } from './common/exceptions/http/base-http.exception';
+import { FAIL_VALIDATION_CODE, BaseHttpException } from './common';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
