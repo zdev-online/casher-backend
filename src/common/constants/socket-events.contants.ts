@@ -10,5 +10,5 @@ export const SocketEvents = {
 	GAME_CRASH_BET: 'game:crash:bet',
 	GAME_CRASH_RESULT: 'game:crash:result',
 	GAME_CRASH_CURRENT_X: 'game:crash:current:x',
-	GAME_CRASH_END: 'game:crash:end'
+	GAME_CRASH_END: 'game:crash:end',
 };

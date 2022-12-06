@@ -5,8 +5,8 @@ export class AddCrashBetDto {
 	@IsNotEmpty()
 	@IsNumber()
 	public bet: number;
-	
-  @IsOptional()
+
+	@IsOptional()
 	@IsNotEmpty()
 	@IsNumber()
 	public auto_output?: number | null;
