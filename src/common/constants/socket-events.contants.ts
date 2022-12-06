@@ -6,7 +6,9 @@ export const SocketEvents = {
 	NEW_NOTIFICATIONS: 'new:notifications',
 	GET_UNREAD_NOTIFICATIONS: 'get:unread:notifications',
 	MARK_AS_READ_NOTIFICATIONS: 'mark:as:read:notifications',
-	GAME_CRASH_GET_CURRENT: 'game:crash:get:current',
+	GAME_CRASH_CURRENT: 'game:crash:current',
 	GAME_CRASH_BET: 'game:crash:bet',
 	GAME_CRASH_RESULT: 'game:crash:result',
+	GAME_CRASH_CURRENT_X: 'game:crash:current:x',
+	GAME_CRASH_END: 'game:crash:end'
 };

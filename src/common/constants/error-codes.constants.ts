@@ -18,3 +18,7 @@ export const INVALID_VERIFICATION_TOKEN = 203;
 
 export const NOT_AUTHORIZED_CODE = 300;
 export const FLOOD_LIMIT_CODE = 301;
+
+export const CRASH_GAME_IS_STARTED_CODE = 400;
+export const LOW_BET_VALUE_CODE = 401;
+export const HIGH_BET_VALUE_CODE = 402;
